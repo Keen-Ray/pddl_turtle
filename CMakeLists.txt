@@ -14,7 +14,12 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
   geometry_msgs
   gazebo
+  genmsg 
+  actionlib_msgs 
+  actionlib
+  move_base
 )
+
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -30,7 +35,16 @@ catkin_python_setup()
 ###################################
 ## catkin specific configuration ##
 ###################################
-
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if your package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+  LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS rospy std_msgs
+)
 
 ###########
 ## Build ##
@@ -43,6 +57,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${gazebo_INCLUDE_DIRS}
 )
+
+
 #############
 ## Install ##
 #############
