@@ -24,36 +24,35 @@ from std_msgs.msg import (
 )
 
 def load_door():
-    position: 
-    x: 0.950391173363
-    y: 0.0417707748711
-    z: 0.730000019073
-  orientation: 
-    x: 0.0
-    y: 0.0
-    z: 0.712463617325
-    w: 0.701709151268
+    rospy.wait_for_service('/gazebo/spawn_sdf_model')
+    spawn_sdf = rospy.ServiceProxy('/gazebo/spawn_sdf_model', SpawnModel)
 
-    door_info = {"door1" : Pose(position=Point(x=0.0, y=0.0, z=.73)),
-                 "door2" : Pose(position=Point(x=0.0, y=0.0, z=.73), orientation=Quaternion(x=0.0, y=0.0, z=.712, w=.701)),
-                 "door3" : Pose(position=Point(x=0.0, y=0.0, z=0.0)),
-                 "door4" : Pose(position=Point(x=2.44, y=4.61, z=.73)),
-                 "door5" : Pose(position=Point(x=2.20, y=0.441, z=.73)),
-                  }
+
     model_path = rospkg.RosPack().get_path('pddl_turtle')+"/models/"
-    pose = Pose(position=Point(x=2.20, y=0.441, z=.73))
-    name = "door1"
     with open (model_path + "door1/model.sdf", "r") as door:
             door_xml=door.read().replace('\n', '')
     namespace = "/"
 
+    door_info = {"door1" : Pose(position=Point(x=-6.330, y=.822, z=.73),
+                                orientation=Quaternion(x=0.0, y=0.0, z=.712, 
+                                                       w=.701)),
+                 "door2" : Pose(position=Point(x=1.128, y=-.0952, z=.73),    
+                                orientation=Quaternion(x=0.0, y=0.0, z=.712, 
+                                                       w=.701)),
+                 "door4" : Pose(position=Point(x=2.44, y=4.61, z=.73)),
+                 "door5" : Pose(position=Point(x=2.20, y=0.441, z=.73)),
+                 "door6" : Pose(position=Point(x=6.1735, y=-0.0653, z=.73),  
+                                orientation=Quaternion(x=0.0, y=0.0, z=.712, 
+                                                       w=.701)),
+                  }
+    for door_name in door_info.keys():
+        pose = door_info[door_name]
+        print("Addding model: %s"%door_name)
 
-    rospy.wait_for_service('/gazebo/spawn_sdf_model')
-    spawn_sdf = rospy.ServiceProxy('/gazebo/spawn_sdf_model', SpawnModel)
-    try:
-        spawn_sdf(name, door_xml, namespace, pose, "world")
-    except rospy.ServiceException as e:
-        print("Service call failed: %s"%e)
+        try:
+            spawn_sdf(door_name, door_xml, namespace, pose, "world")
+        except rospy.ServiceException as e:
+            print("Service call failed: %s"%e)
 
 if __name__ == "__main__":
     print("Requesting door load")
