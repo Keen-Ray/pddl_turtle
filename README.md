@@ -1,5 +1,8 @@
 # pddl_turtle
-install turtlebot sim
+install turtlebot simulation
+install kcl planning
+install bison
+
 
 
 
