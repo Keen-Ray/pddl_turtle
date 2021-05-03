@@ -14,12 +14,14 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_ros
   geometry_msgs
   gazebo
-  genmsg 
+  genmsg  
+  rosplan_dispatch_msgs
+  rosplan_knowledge_msgs
+  rosplan_planning_system
   actionlib_msgs 
   actionlib
   move_base
 )
-
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -54,10 +56,20 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   include
+  pddl_turtle/include
   ${catkin_INCLUDE_DIRS}
   ${gazebo_INCLUDE_DIRS}
 )
 
+## Declare action interface for go to door
+add_executable(goToInterface src/go_to.cpp)
+target_link_libraries(goToInterface ${catkin_LIBRARIES})
+
+install(TARGETS goToInterface
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 #############
 ## Install ##

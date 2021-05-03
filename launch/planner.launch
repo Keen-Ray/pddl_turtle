@@ -22,7 +22,7 @@
         <arg name="domain_path" value="$(find pddl_turtle)/pddl/domain.pddl" />
         <!-- load a particular initial state into KB at startup (optional) -->
         <!-- we leave it empty because in this demo we use a bash script to upload information to KB, not a pddl problem -->
-        <arg name="problem_path" value="$(find pddl_turtle)/pddl/problem.pddl" />
+        <arg name="problem_path" value="$(find pddl_turtle)/pddl/simple_pro.pddl" />
         <!-- automatically generated pddl problem will be created here -->
         <arg name="autom_gen_problem_path" value="$(find pddl_turtle)/pddl/problem_out.pddl" />
         <!-- planner will produce output plan and write to this location -->
@@ -33,11 +33,15 @@
 		<arg name="pddl_action_name" value="go_through" />
 	</include>
 	<include file="$(find rosplan_planning_system)/launch/includes/simulated_action.launch" >
-		<arg name="pddl_action_name" value="go_to_door" />
-	</include>
-	<include file="$(find rosplan_planning_system)/launch/includes/simulated_action.launch" >
 		<arg name="pddl_action_name" value="open_door" />
 	</include>
+    <node name="go_to_interface" pkg="pddl_turtle" type="goToInterface" respawn="false" output="screen">
+		<param name="knowledge_base"		value="rosplan_knowledge_base" />
+		<param name="pddl_action_name"		value="go_to_door" />
+        <param name="action_server" value="/go_to" />
+		<param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+		<param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+	</node>
     
     <!-- rosplan move base action interface, makes link between rosplan dispatcher and hardware 
     <node pkg="rosplan_interface_movebase" type="rpmovebase" name="rosplan_interface_movebase" respawn="false" output="screen">
