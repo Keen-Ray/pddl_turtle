@@ -63,9 +63,16 @@ include_directories(
 
 ## Declare action interface for go to door
 add_executable(goToInterface src/go_to.cpp)
+add_executable(openInterface src/open.cpp)
 target_link_libraries(goToInterface ${catkin_LIBRARIES})
+target_link_libraries(openInterface ${catkin_LIBRARIES})
 
 install(TARGETS goToInterface
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+install(TARGETS openInterface
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

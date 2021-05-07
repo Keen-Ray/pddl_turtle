@@ -1,4 +1,4 @@
-#include "go_to.h"
+#include "go_to_interface.h"
 
 /* The implementation of RPTutorial.h */
 namespace KCL_rosplan {
@@ -106,7 +106,7 @@ namespace KCL_rosplan {
 
 int main(int argc, char **argv) {
 
-    ros::init(argc, argv, "rosplan_tutorial_action",    ros::init_options::AnonymousName);
+    ros::init(argc, argv, "go_to_action",    ros::init_options::AnonymousName);
     ros::NodeHandle nh("~");
 
     // create PDDL action subscriber
