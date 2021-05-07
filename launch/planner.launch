@@ -6,16 +6,12 @@
     <arg name="map_file" default="$(find pddl_turtle)/map/map3.yaml"/>
     <arg name="gazebo_gui" default="true"/> 
 
-    <!-- turtlebot3 simulation -->
+    <!-- turtlebot3 simulation navigation ect-->
     <include file="$(find pddl_turtle)/launch/turtlebot3_bringup_sim.launch" >
         <arg name="gazebo_gui" value="$(arg gazebo_gui)"/>
     </include> 
 
-    <!-- turtlebot3 navigation: move base, amcl (localisation) -->
-    <include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch" >
-        <arg name="map_file" value="$(arg map_file)"/>
-        <arg name="open_rviz" value="false"/>
-    </include> 
+    
 
     <!-- ROSPlan -->
     <include file="$(find rosplan_planning_system)/launch/interfaced_planning_system.launch" >
