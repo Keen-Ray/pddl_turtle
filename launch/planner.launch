@@ -25,9 +25,14 @@
         <arg name="data_path" value="$(find pddl_turtle)/pddl/" />
     </include>
     <!-- sim actions -->
-	<include file="$(find rosplan_planning_system)/launch/includes/simulated_action.launch" >
-		<arg name="pddl_action_name" value="go_through" />
-	</include>
+
+    <node name="go_through_interface" pkg="pddl_turtle" type="goThroughInterface" respawn="false" output="screen">
+		<param name="knowledge_base"		value="rosplan_knowledge_base" />
+		<param name="pddl_action_name"		value="go_through" />
+        <param name="action_server" value="/go_through" />
+		<param name="action_dispatch_topic" value="/rosplan_plan_dispatcher/action_dispatch" />
+		<param name="action_feedback_topic" value="/rosplan_plan_dispatcher/action_feedback" />
+	</node>
 
     <node name="open_interface" pkg="pddl_turtle" type="openInterface" respawn="false" output="screen">
 		<param name="knowledge_base"		value="rosplan_knowledge_base" />

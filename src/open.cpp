@@ -8,6 +8,7 @@ namespace KCL_rosplan {
 
 
 		/* start on code to load the doors here instead of python 
+		//needs a wait for server
 		//spawn all the doors
 		ros::ServiceClient client = nh.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_sdf_model");
 

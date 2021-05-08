@@ -16,8 +16,6 @@
 	(connects door5 room4)
 	(connects door3 room4)
 	(connects door3 room5)
-	(at_door turtle door1)
-	(open door1)
 
 
 	
