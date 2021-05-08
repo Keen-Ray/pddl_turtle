@@ -1,6 +1,6 @@
 (define (domain pddl_turtle)
 
-(:requirements :strips :typing :disjunctive-preconditions)
+(:requirements :strips :typing :disjunctive-preconditions :durative-actions)
 
 (:types
 	robot
@@ -23,42 +23,45 @@
 
 
 ;; Move to any waypoint, avoiding terrain
-(:action go_through
+(:durative-action go_through
 	:parameters (?v - robot ?d - door ?from ?to - room)
-	:precondition (and
-		(at_door ?v ?d)
-		(open ?d)
-		(connects ?d ?from)
-		(connects ?d ?to)
-		(in_room ?v ?from)
+	:duration ( = ?duration 10)
+	:condition (and
+		(at start (at_door ?v ?d))
+		(at start (open ?d))
+		(at start (connects ?d ?from))
+		(at start (connects ?d ?to))
+		(at start (in_room ?v ?from))
 		)
 	:effect (and
-		(in_room ?v ?to)
-		(not (in_room ?v ?from))
+		(at end (in_room ?v ?to))
+		(at start (not (in_room ?v ?from)))
 		)
 )
 
 
-(:action go_to_door
+(:durative-action go_to_door
 	:parameters (?v - robot ?from - room ?d - door)
-	:precondition (and
-		(in_room ?v ?from)
-		(connects ?d ?from)
+	:duration ( = ?duration 20)
+	:condition (and
+		(at start (in_room ?v ?from))
+		(at start (connects ?d ?from))
 		
 		)
 	:effect (and
-		(at_door ?v ?d)
+		(at end (at_door ?v ?d))
 		)
 )
 
-(:action open_door
+(:durative-action open_door
 	:parameters (?v - robot ?d - door)
-	:precondition (and
-		(at_door ?v ?d)
+	:duration ( = ?duration 2)
+	:condition (and
+		(at start (at_door ?v ?d))
 	
 		)
 	:effect (and
-		(open ?d)
+		(at end (open ?d))
 		)
 )
 

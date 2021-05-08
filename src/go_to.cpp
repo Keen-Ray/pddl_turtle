@@ -64,7 +64,7 @@ namespace KCL_rosplan {
 		
 
 		//tell the action client that we want to spin a thread by default
-  		MoveBaseClient ac("move_base", true);
+  		actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
 
 		//wait for the action server to come up
 		while(!ac.waitForServer(ros::Duration(5.0))) {

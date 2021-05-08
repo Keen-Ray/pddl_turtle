@@ -7,6 +7,7 @@ namespace KCL_rosplan {
 	GoThroughInterface::GoThroughInterface(ros::NodeHandle &nh) {
 
 		//no setup needed
+		clear_costmaps_client_ = nh.serviceClient<std_srvs::Empty>("/move_base/clear_costmaps");
 
 	}
 
@@ -22,10 +23,11 @@ namespace KCL_rosplan {
 				from = msg->parameters[i].value;
 			}
 		}
-		
+		std_srvs::Empty emptySrv;
+        clear_costmaps_client_.call(emptySrv);
 
 		//tell the action client that we want to spin a thread by default
-  		MoveBaseClient ac("move_base", true);
+  		actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
 
 		//wait for the action server to come up
 		while(!ac.waitForServer()) {

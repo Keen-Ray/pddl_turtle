@@ -1,9 +1,11 @@
 #include <ros/ros.h>
 #include <rosplan_action_interface/RPActionInterface.h>
 #include <move_base_msgs/MoveBaseAction.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <actionlib/client/simple_action_client.h>
 #include <vector>
 #include <map>
+#include <std_srvs/Empty.h>
 
 #ifndef PDDL_GO_THROUGH
 #define PDDL_GO_THROUGH
@@ -17,7 +19,8 @@ namespace KCL_rosplan {
 	{
 
 	private:
-		
+		// to clear costmaps if move base gets stuck
+        ros::ServiceClient clear_costmaps_client_;
 
 
 
