@@ -23,20 +23,27 @@ namespace KCL_rosplan {
 		door1.w     = 0.707;
 
 		door_loc door2;
-		door2.x     = -0.35;
-		door2.y     = -1.15;
+		door2.x     = 1.0;
+		door2.y     = 0.5;
+		door2.qz    = -0.707;
+		door2.w     = 0.707;
 
 		door_loc door3;
-		door3.x     = 0.4;
-		door3.y     = -1.05;
-		door3.qz    = 0.0;
-		door3.w     = 0.1;
+		door3.x     = 6.1735;
+		door3.y     = 0.5;
+		door3.qz    = -0.707;
+		door3.w     = 0.707;
+
 		door_loc door4;
-		door4.x     = 4.6;
-		door3.y     = -1.05;
+		door4.x     = 2.70;
+		door4.y     = 4.61;
+		door4.qz    = 1.0;
+		door4.w     = 0.0;
 		door_loc door5;
-		door5.x     = 1.3;
-		door5.y     = 3.05;
+		door5.x     = 1.6;
+		door5.y     = .5;
+		door5.qz     = 0.0;
+		door5.w     = 1.0;
 
 		database.insert(std::pair<std::string, door_loc>("door1", door1));
 		database.insert(std::pair<std::string, door_loc>("door2", door2));

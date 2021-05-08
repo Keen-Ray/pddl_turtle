@@ -6,7 +6,7 @@
     door1 door2 door3 door4 door5 - door
 )
 (:init
-	(in_room turtle room1)
+	(in_room turtle room4)
 	(connects door1 room1)
 	(connects door1 room2)
 	(connects door2 room2)
@@ -25,6 +25,6 @@
 
 )
 (:goal (and
-	(in_room turtle room2)
+	(in_room turtle room5)
 	
 )))

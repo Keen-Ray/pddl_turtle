@@ -41,7 +41,7 @@ def load_door():
                                                        w=.701)),
                  "door4" : Pose(position=Point(x=2.44, y=4.61, z=.73)),
                  "door5" : Pose(position=Point(x=2.20, y=0.441, z=.73)),
-                 "door6" : Pose(position=Point(x=6.1735, y=-0.0653, z=.73),  
+                 "door3" : Pose(position=Point(x=6.1735, y=-0.0653, z=.73),  
                                 orientation=Quaternion(x=0.0, y=0.0, z=.712, 
                                                        w=.701)),
                   }
