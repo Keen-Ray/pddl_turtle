@@ -1,3 +1,6 @@
+echo "Placing in Doors"
+./doors.py
+
 echo "Generating a Problem"
 rosservice call /rosplan_problem_interface/problem_generation_server
 

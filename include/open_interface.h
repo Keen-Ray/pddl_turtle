@@ -1,9 +1,12 @@
 #include <ros/ros.h>
+#include <ros/package.h>
 #include <rosplan_action_interface/RPActionInterface.h>
-#include <move_base_msgs/MoveBaseAction.h>
-#include <actionlib/client/simple_action_client.h>
-#include <vector>
-#include <map>
+#include <gazebo_msgs/SpawnModel.h>
+#include <gazebo_msgs/DeleteModel.h>
+#include <geometry_msgs/PoseStamped.h>
+#include <iostream>
+#include <fstream>
+#include <string>
 
 #ifndef PDDL_OPEN
 #define PDDL_OPEN
@@ -18,7 +21,6 @@ namespace KCL_rosplan {
 
 	private:
 		
-
 
 
 	public:

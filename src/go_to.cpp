@@ -93,7 +93,7 @@ namespace KCL_rosplan {
 			ROS_INFO("PDDL: (%s) TUTORIAL from: %s to %s completing.", msg->name.c_str(), from.c_str(), door.c_str());
 			return true;
 		} else {
-			ROS_INFO("PDDL: (%s) The base failed to move to %s", msg->name.c_str(), door.c_str());
+			ROS_ERROR("PDDL: (%s) The base failed to move to %s", msg->name.c_str(), door.c_str());
 			return false;
 		}
 	}

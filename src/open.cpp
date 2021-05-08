@@ -6,13 +6,49 @@ namespace KCL_rosplan {
 	/* constructor */
 	openInterface::openInterface(ros::NodeHandle &nh) {
 
+
+		/* start on code to load the doors here instead of python 
 		//spawn all the doors
+		ros::ServiceClient client = nh.serviceClient<gazebo_msgs::SpawnModel>("/gazebo/spawn_sdf_model");
+
+		gazebo_msgs::SpawnModel spawner;
+		std::string model_path = ros::package::getPath("pddl_turtle");
+		model_path += "/models/door1/model.sdf";
+		ROS_INFO("PDDL: Door model path: %s", model_path.c_str());
+
+		//read in the xml
+		std::string model_xml = "";
+		std::ifstream xml_file;
+		xml_file.open(model_path.c_str());
+		std::string temp;
+		while (xml_file >> temp) {
+			model_xml += temp;
+		}
+
+
+		spawner.request.model_name = "door1";
+		spawner.request.model_xml = model_xml;
+		spawner.request.robot_namespace = "/";
+		spawner.request.reference_frame = "world";
+		spawner.request.initial_pose.position.x = -6.330;
+		spawner.request.initial_pose.position.y = .822;
+		spawner.request.initial_pose.position.z = .73;
+		spawner.request.initial_pose.orientation.z = .707;
+		spawner.request.initial_pose.orientation.w = .707;
+
+		if (client.call(spawner)) {
+			ROS_INFO("PDDL: spawned %s", "door1");
+		} else {
+			ROS_ERROR("PDDL: could not spawn %s", "door1");
+		};
+		*/
 
 	}
 
 	/* action dispatch callback */
 	bool openInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg) {
-
+		ROS_INFO("PDDL: (%s) requested", msg->name.c_str());
+		ros::NodeHandle nh("~");
 		// The action implementation goes here.
 		std::string door = "";
 		for (int i = 0; i < msg->parameters.size(); i++)
@@ -22,9 +58,18 @@ namespace KCL_rosplan {
 			}
 		}
 		
+		ros::ServiceClient client = nh.serviceClient<gazebo_msgs::DeleteModel>("/gazebo/delete_model");
+		gazebo_msgs::DeleteModel deleter;
 
-  		ROS_INFO("PDDL: (%s) %s complete", msg->name.c_str(), door.c_str());
-  		return true;
+		deleter.request.model_name = door;
+
+		if (client.call(deleter)) {
+  			ROS_INFO("PDDL: (%s) %s complete", msg->name.c_str(), door.c_str());
+			return true;
+		} else {
+			ROS_ERROR("PDDL: could not open %s", door.c_str());
+		};
+  		
 	}
 
 } // close namespace
