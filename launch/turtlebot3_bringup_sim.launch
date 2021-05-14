@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- bringup a turtlebot3 in simulation with gazebo -->
+
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="x_pos" default="-6.5"/>
+    <arg name="y_pos" default="-3.0"/>
+<!-- New spawn location -6.5 -3 -->
+    <arg name="gazebo_gui" default="true"/>
+    <arg name="world_name" default="$(find turtlebot3_gazebo)/worlds/turtlebot3_house.world"/>
+    <arg name="map_file" default="$(find pddl_turtle)/map/map3.yaml"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_name)"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="$(arg gazebo_gui)"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <!-- upload turtlebot3 URDF model to param server -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <!-- spawn turtlebot3 robot -->
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"
+          args="-urdf -model turtlebot3_$(arg model) -x $(arg x_pos) -y $(arg y_pos) -z 0.0 -param robot_description" />
+
+    <!-- turtlebot3 navigation: move base, amcl (localisation) -->
+    <include file="$(find pddl_turtle)/launch/turtlebot3_navigation.launch" >
+        <arg name="map_file" value="$(arg map_file)"/>
+        <arg name="open_rviz" value="true"/>
+        <arg name="initial_pose_x"            value="$(arg x_pos)"/>
+        <arg name="initial_pose_y"            value="$(arg y_pos)"/>
+    </include> 
+
+</launch>
