@@ -4,9 +4,9 @@
 namespace KCL_rosplan {
 
 	/* constructor */
-	openInterface::openInterface(ros::NodeHandle &nh) {
+	openInterface::openInterface(ros::NodeHandle &node_handle) {
 
-
+		nh = node_handle;
 		/* start on code to load the doors here instead of python 
 		//needs a wait for server
 		//spawn all the doors
@@ -48,8 +48,7 @@ namespace KCL_rosplan {
 
 	/* action dispatch callback */
 	bool openInterface::concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg) {
-		ROS_INFO("PDDL: (%s) requested", msg->name.c_str());
-		ros::NodeHandle nh("~");
+		
 		// The action implementation goes here.
 		std::string door = "";
 		for (int i = 0; i < msg->parameters.size(); i++)
@@ -58,7 +57,8 @@ namespace KCL_rosplan {
 				door = msg->parameters[i].value;
 			}
 		}
-		
+		ROS_INFO("PDDL: (%s) requested %s", msg->name.c_str(), door.c_str());
+
 		ros::ServiceClient client = nh.serviceClient<gazebo_msgs::DeleteModel>("/gazebo/delete_model");
 		gazebo_msgs::DeleteModel deleter;
 

@@ -30,7 +30,7 @@ namespace KCL_rosplan {
 
 		door_loc door3;
 		door3.x     = 6.1735;
-		door3.y     = 0.5;
+		door3.y     = 0.6;
 		door3.qz    = -0.707;
 		door3.w     = 0.707;
 

@@ -20,13 +20,13 @@ namespace KCL_rosplan {
 	{
 
 	private:
-		
+		ros::NodeHandle nh;
 
 
 	public:
 
 		/* constructor */
-		openInterface(ros::NodeHandle &nh);
+		openInterface(ros::NodeHandle &node_handle);
 
 		/* listen to and process action_dispatch topic */
 		bool concreteCallback(const rosplan_dispatch_msgs::ActionDispatch::ConstPtr& msg);

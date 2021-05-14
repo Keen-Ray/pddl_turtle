@@ -53,19 +53,4 @@
 		)
 )
 
-(:durative-action open_door
-	:parameters (?v - robot ?d - door)
-	:duration ( = ?duration 2)
-	:condition (and
-		(at start (at_door ?v ?d))
-	
-		)
-	:effect (and
-		(at end (open ?d))
-		)
-)
-
-
-
-
 )

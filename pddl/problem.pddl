@@ -25,6 +25,6 @@
 
 )
 (:goal (and
-	(in_room turtle room5)
+	(in_room turtle room2)
 	
 )))
