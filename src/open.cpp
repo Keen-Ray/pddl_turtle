@@ -7,6 +7,7 @@ namespace KCL_rosplan {
 	openInterface::openInterface(ros::NodeHandle &node_handle) {
 
 		nh = node_handle;
+		ROS_INFO("PDDL: Finished open setup");
 		/* start on code to load the doors here instead of python 
 		//needs a wait for server
 		//spawn all the doors
